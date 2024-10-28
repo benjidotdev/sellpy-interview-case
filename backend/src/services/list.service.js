@@ -11,3 +11,7 @@ export const createList = async (list) => {
 export const getList = async (id) => {
   return List.findById(id).populate('todos');
 }
+
+export const updateList = async (id, list) => {
+  return List.findByIdAndUpdate(id, list, { new: true });
+}
