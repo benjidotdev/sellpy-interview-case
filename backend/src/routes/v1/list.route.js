@@ -6,6 +6,7 @@ const router = express.Router();
 
 router
   .route('/')
-  .get(listController.getLists);
+  .get(listController.getLists)
+  .post(listController.createList);
 
 export default router;
