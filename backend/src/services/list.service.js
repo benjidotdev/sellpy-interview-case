@@ -7,3 +7,7 @@ export const getLists = async () => {
 export const createList = async (list) => {
   return List.create(list);
 };
+
+export const getList = async (id) => {
+  return List.findById(id).populate('todos');
+}

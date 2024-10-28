@@ -9,3 +9,8 @@ export const createList = async (req, res) => {
   const result = await listService.createList(req.body);
   res.send(result);
 }
+
+export const getList = async (req, res) => {
+  const result = await listService.getList(req.params.id);
+  res.send(result);
+}
