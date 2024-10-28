@@ -10,6 +10,7 @@ router
 
 router
   .route('/:id')
-  .put(todoController.updateTodo);
+  .put(todoController.updateTodo)
+  .delete(todoController.deleteTodo);
 
 export default router;

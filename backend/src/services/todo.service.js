@@ -11,3 +11,7 @@ export const deleteTodos = async (ids) => {
 export const updateTodo = async (id, todo) => {
   return Todo.findByIdAndUpdate(id, todo, { new: true });
 };
+
+export const deleteTodo = async (id) => {
+  return Todo.findByIdAndDelete(id);
+};
