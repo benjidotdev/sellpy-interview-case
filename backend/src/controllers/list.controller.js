@@ -19,3 +19,8 @@ export const updateList = async (req, res) => {
   const result = await listService.updateList(req.params.id, req.body);
   res.send(result);
 }
+
+export const deleteList = async (req, res) => {
+  const result = await listService.deleteList(req.params.id);
+  res.send(result);
+}

@@ -12,6 +12,7 @@ router
 router
   .route('/:id')
   .get(listController.getList)
-  .put(listController.updateList);
+  .put(listController.updateList)
+  .delete(listController.deleteList);
 
 export default router;
