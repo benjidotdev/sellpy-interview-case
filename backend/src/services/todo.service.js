@@ -7,3 +7,7 @@ export const createTodo = async (todo) => {
 export const deleteTodos = async (ids) => {
   await Todo.deleteMany({ _id: { $in: ids } });
 };
+
+export const updateTodo = async (id, todo) => {
+  return Todo.findByIdAndUpdate(id, todo, { new: true });
+};

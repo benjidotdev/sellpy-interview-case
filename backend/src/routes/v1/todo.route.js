@@ -8,4 +8,8 @@ router
   .route('/')
   .post(todoController.createTodo);
 
+router
+  .route('/:id')
+  .put(todoController.updateTodo);
+
 export default router;
