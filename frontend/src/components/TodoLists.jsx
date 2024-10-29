@@ -13,7 +13,7 @@ import { TodoListForm } from './TodoListForm'
 
 const fetchTodoLists = async () => {
   try {
-    const response = await fetch('http://localhost:3000/v1/list', {
+    const response = await fetch('http://localhost:3000/api/v1/list', {
       headers: {
         Accept: 'application/json',
       },
