@@ -1,34 +1,15 @@
-export const saveListTodos = async ({listId, todos}) => {
-  console.log('saveTodos', {listId, todos})
-  try {
-    const response = await fetch(`http://localhost:3000/api/v1/list/${listId}/todos`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(todos),
-    });
-    if (!response.ok) {
-      throw new Error(`Error saving Todos: ${response.status} ${response.statusText}`);
-    }
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.error(error);
-  }
-}
+import { fetchApi } from './fetchApi.js';
+
+export const saveListTodos = async ({ listId, todos }) => {
+  const url = `list/${listId}/todos`;
+  const method = 'PUT';
+  const data = todos;
+  return await fetchApi(url, method, data);
+};
 
 export const deleteTodo = async (id) => {
-  try {
-    const response = await fetch(`http://localhost:3000/api/v1/todo/${id}`, {
-      method: 'DELETE',
-    });
-    if (!response.ok) {
-      throw new Error(`Error deleting Todo: ${response.status} ${response.statusText}`);
-    }
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.error(error);
-  }
-}
+  const url = `todo/${id}`;
+  const method = 'DELETE';
+  const data = null;
+  return await fetchApi(url, method, data);
+};
