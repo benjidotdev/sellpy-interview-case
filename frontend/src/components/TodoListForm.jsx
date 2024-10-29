@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { TextField, Card, CardContent, CardActions, Button, Typography } from '@mui/material'
 import DeleteIcon from '@mui/icons-material/Delete'
 import AddIcon from '@mui/icons-material/Add'
+import { deleteTodo } from '../modules/todos'
 
 export const TodoListForm = ({ todoList, saveTodoList }) => {
   const [todos, setTodos] = useState(todoList.todos)
@@ -20,7 +21,7 @@ export const TodoListForm = ({ todoList, saveTodoList }) => {
           style={{ display: 'flex', flexDirection: 'column', flexGrow: 1 }}
         >
           {todos.map((todo, index) => {
-            const { description } = todo
+            const { id, description } = todo
             return (
               <div key={index} style={{ display: 'flex', alignItems: 'center' }}>
                 <Typography sx={{ margin: '8px' }} variant='h6'>
@@ -43,13 +44,7 @@ export const TodoListForm = ({ todoList, saveTodoList }) => {
                   sx={{ margin: '8px' }}
                   size='small'
                   color='secondary'
-                  onClick={() => {
-                    setTodos([
-                      // immutable delete
-                      ...todos.slice(0, index),
-                      ...todos.slice(index + 1),
-                    ])
-                  }}
+                  onClick={() => deleteTodo(id)}
                 >
                   <DeleteIcon />
                 </Button>

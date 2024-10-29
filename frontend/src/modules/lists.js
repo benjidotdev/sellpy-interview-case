@@ -1,7 +1,9 @@
-export const deleteTodo = async (id) => {
+export const fetchTodoLists = async () => {
   try {
-    const response = await fetch(`http://localhost:3000/api/v1/todo/${id}`, {
-      method: 'DELETE',
+    const response = await fetch('http://localhost:3000/api/v1/list', {
+      headers: {
+        Accept: 'application/json',
+      },
     });
     if (!response.ok) {
       throw new Error(`Error deleting Todo: ${response.status} ${response.statusText}`);

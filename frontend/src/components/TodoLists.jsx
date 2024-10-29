@@ -10,7 +10,7 @@ import {
 } from '@mui/material'
 import ReceiptIcon from '@mui/icons-material/Receipt'
 import { TodoListForm } from './TodoListForm'
-import { fetchTodoLists } from '../modules/todos'
+import { fetchTodoLists } from '../modules/lists'
 
 export const TodoLists = ({ style }) => {
   const [todoLists, setTodoLists] = useState({})
