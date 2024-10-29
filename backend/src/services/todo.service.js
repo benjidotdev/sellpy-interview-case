@@ -1,7 +1,9 @@
-import { Todo } from '../models/index.js'
+import { List, Todo } from '../models/index.js'
 
 export const createTodo = async (todo) => {
-  return Todo.create(todo);
+  const newTodo = await Todo.create(todo);
+  await List.findByIdAndUpdate(todo.list, { $addToSet: { todos: newTodo._id } });
+  return newTodo;
 };
 
 export const deleteTodos = async (ids) => {
@@ -13,5 +15,9 @@ export const updateTodo = async (id, todo) => {
 };
 
 export const deleteTodo = async (id) => {
-  return Todo.findByIdAndDelete(id);
+  const deletedTodo = await Todo.findByIdAndDelete(id);
+  if (deletedTodo) {
+    await List.findByIdAndUpdate(deletedTodo.list, { $pull: { todos: id } });
+  }
+  return deletedTodo;
 };
