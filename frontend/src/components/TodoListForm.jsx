@@ -2,10 +2,25 @@ import React, { useState } from 'react'
 import { TextField, Card, CardContent, CardActions, Button, Typography } from '@mui/material'
 import DeleteIcon from '@mui/icons-material/Delete'
 import AddIcon from '@mui/icons-material/Add'
-import { saveListTodos, deleteTodo,  } from '../modules/todos'
+import { saveListTodos, deleteTodo } from '../modules/todos'
 
 export const TodoListForm = ({ todoList }) => {
-  const [todos, setTodos] = useState(todoList.todos)
+  const [todos, setTodos] = useState([...todoList.todos]);
+
+  const handleAddTodo = () => {
+    setTodos([...todos, { id: '', description: '' }]);
+  };
+
+  const handleInputChange = (index, event) => {
+    const updatedTodos = [...todos];
+    updatedTodos[index].description = event.target.value;
+    setTodos(updatedTodos);
+  };
+
+  const handleDeleteTodo = async (id) => {
+    await deleteTodo(id);
+    setTodos(todos.filter((todo) => todo.id !== id));
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault()
@@ -31,21 +46,13 @@ export const TodoListForm = ({ todoList }) => {
                   sx={{ flexGrow: 1, marginTop: '1rem' }}
                   label='What to do?'
                   value={description}
-                  onChange={(event) => {
-                    const updatedTodo = { ...todos[index], description: event.target.value };
-                    setTodos([
-                      // immutable update
-                      ...todos.slice(0, index),
-                      updatedTodo,
-                      ...todos.slice(index + 1),
-                    ]);
-                  }}
+                  onChange={(event) => handleInputChange(index, event)}
                 />
                 <Button
                   sx={{ margin: '8px' }}
                   size='small'
                   color='secondary'
-                  onClick={() => deleteTodo(id)}
+                  onClick={() => handleDeleteTodo(id)}
                 >
                   <DeleteIcon />
                 </Button>
@@ -56,9 +63,7 @@ export const TodoListForm = ({ todoList }) => {
             <Button
               type='button'
               color='primary'
-              onClick={() => {
-                setTodos([...todos, ''])
-              }}
+              onClick={() => handleAddTodo()}
             >
               Add Todo <AddIcon />
             </Button>
