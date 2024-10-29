@@ -10,21 +10,7 @@ import {
 } from '@mui/material'
 import ReceiptIcon from '@mui/icons-material/Receipt'
 import { TodoListForm } from './TodoListForm'
-
-const fetchTodoLists = async () => {
-  try {
-    const response = await fetch('http://localhost:3000/api/v1/list', {
-      headers: {
-        Accept: 'application/json',
-      },
-    });
-    const data = await response.json();
-    console.log(data);
-    return data;
-  } catch (error) {
-    console.error(error);
-  }
-}
+import { fetchTodoLists } from '../modules/todos'
 
 export const TodoLists = ({ style }) => {
   const [todoLists, setTodoLists] = useState({})
