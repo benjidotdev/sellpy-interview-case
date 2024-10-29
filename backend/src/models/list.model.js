@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import toJSON from './plugins/toJSON.js'
 
 const listSchema = new mongoose.Schema({
   title: {
@@ -14,6 +15,8 @@ const listSchema = new mongoose.Schema({
 }, {
   timestamps: true
 });
+
+listSchema.plugin(toJSON);
 
 const List = mongoose.model('List', listSchema);
 

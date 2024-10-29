@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import toJSON from './plugins/toJSON.js'
 
 const todoSchema = new mongoose.Schema({
   description: {
@@ -12,6 +13,8 @@ const todoSchema = new mongoose.Schema({
 }, {
   timestamps: true
 });
+
+todoSchema.plugin(toJSON);
 
 todoSchema.index({ list: 1 });
 
