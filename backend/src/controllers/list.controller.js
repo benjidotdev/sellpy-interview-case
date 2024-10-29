@@ -1,4 +1,4 @@
-import { listService } from '../services/index.js';
+import { listService, todoService } from '../services/index.js'
 
 export const getLists = async (req, res) => {
   const result = await listService.getLists();
@@ -9,6 +9,11 @@ export const createList = async (req, res) => {
   const result = await listService.createList(req.body);
   res.send(result);
 }
+
+export const saveListTodos = async (req, res) => {
+  const result = await todoService.saveListTodos(req.params.id, req.body);
+  res.send(result);
+};
 
 export const getList = async (req, res) => {
   const result = await listService.getList(req.params.id);

@@ -2,14 +2,14 @@ import React, { useState } from 'react'
 import { TextField, Card, CardContent, CardActions, Button, Typography } from '@mui/material'
 import DeleteIcon from '@mui/icons-material/Delete'
 import AddIcon from '@mui/icons-material/Add'
-import { deleteTodo } from '../modules/todos'
+import { saveListTodos, deleteTodo,  } from '../modules/todos'
 
-export const TodoListForm = ({ todoList, saveTodoList }) => {
+export const TodoListForm = ({ todoList }) => {
   const [todos, setTodos] = useState(todoList.todos)
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    saveTodoList(todoList.id, { todos })
+    saveListTodos({ listId: todoList.id, todos: todos})
   }
 
   return (
@@ -32,12 +32,13 @@ export const TodoListForm = ({ todoList, saveTodoList }) => {
                   label='What to do?'
                   value={description}
                   onChange={(event) => {
+                    const updatedTodo = { ...todos[index], description: event.target.value };
                     setTodos([
                       // immutable update
                       ...todos.slice(0, index),
-                      event.target.value,
+                      updatedTodo,
                       ...todos.slice(index + 1),
-                    ])
+                    ]);
                   }}
                 />
                 <Button

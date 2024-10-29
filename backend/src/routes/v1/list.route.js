@@ -10,6 +10,10 @@ router
   .post(listController.createList);
 
 router
+  .route('/:id/todos')
+  .put(listController.saveListTodos);
+
+router
   .route('/:id')
   .get(listController.getList)
   .put(listController.updateList)

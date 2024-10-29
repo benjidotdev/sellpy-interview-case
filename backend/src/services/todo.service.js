@@ -21,3 +21,13 @@ export const deleteTodo = async (id) => {
   }
   return deletedTodo;
 };
+
+// TODO: consider refactoring for something more efficient
+export const saveListTodos = async (listId, todos) => {
+  await Todo.deleteMany({ list: listId });
+  const todoDocuments = todos.map((todo) => ({ description: todo.description, list: listId }));
+  const result = await Todo.insertMany(todoDocuments);
+  const todoIds = result.map((todo) => todo._id);
+  await List.findByIdAndUpdate(listId, { $set: { todos: todoIds } });
+  return todoIds;
+};
