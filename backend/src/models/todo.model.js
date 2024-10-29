@@ -13,6 +13,8 @@ const todoSchema = new mongoose.Schema({
   timestamps: true
 });
 
+todoSchema.index({ list: 1 });
+
 const Todo = mongoose.model('Todo', todoSchema);
 
 export default Todo;
