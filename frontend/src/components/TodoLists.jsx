@@ -17,8 +17,16 @@ export const TodoLists = ({ style }) => {
   const [activeList, setActiveList] = useState()
 
   useEffect(() => {
-    fetchTodoLists().then(setTodoLists)
-  }, [])
+    const fetchLists = async () => {
+      const lists = await fetchTodoLists();
+      setTodoLists(lists);
+    };
+    fetchLists();
+  }, []);
+
+  const handleListClick = (id) => {
+    setActiveList(id);
+  };
 
   if (!Object.keys(todoLists).length) return null
   return (
@@ -28,7 +36,7 @@ export const TodoLists = ({ style }) => {
           <Typography component='h2'>My Todo Lists</Typography>
           <List>
             {Object.keys(todoLists).map((key) => (
-              <ListItemButton key={key} onClick={() => setActiveList(key)}>
+              <ListItemButton key={key} onClick={() => handleListClick(key)}>
                 <ListItemIcon>
                   <ReceiptIcon />
                 </ListItemIcon>

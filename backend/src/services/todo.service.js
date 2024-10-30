@@ -6,14 +6,6 @@ export const createTodo = async (todo) => {
   return newTodo;
 };
 
-export const deleteTodos = async (ids) => {
-  await Todo.deleteMany({ _id: { $in: ids } });
-};
-
-export const updateTodo = async (id, todo) => {
-  return Todo.findByIdAndUpdate(id, todo, { new: true });
-};
-
 export const deleteTodo = async (id) => {
   const deletedTodo = await Todo.findByIdAndDelete(id);
   if (deletedTodo) {
@@ -22,7 +14,10 @@ export const deleteTodo = async (id) => {
   return deletedTodo;
 };
 
-// TODO: consider refactoring for something more efficient
+export const updateTodo = async (id, todo) => {
+  return Todo.findByIdAndUpdate(id, todo, { new: true });
+};
+
 export const saveListTodos = async (listId, todos) => {
   await Todo.deleteMany({ list: listId });
   const todoDocuments = todos.map((todo) => ({ description: todo.description, list: listId }));
@@ -30,4 +25,8 @@ export const saveListTodos = async (listId, todos) => {
   const todoIds = result.map((todo) => todo._id);
   await List.findByIdAndUpdate(listId, { $set: { todos: todoIds } });
   return todoIds;
+};
+
+export const deleteTodos = async (ids) => {
+  await Todo.deleteMany({ _id: { $in: ids } });
 };

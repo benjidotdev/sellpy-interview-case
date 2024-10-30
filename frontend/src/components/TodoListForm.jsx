@@ -22,10 +22,10 @@ export const TodoListForm = ({ todoList }) => {
     setTodos(todos.filter((todo) => todo.id !== id));
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault()
-    saveListTodos({ listId: todoList.id, todos: todos})
-  }
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    await saveListTodos({ listId: todoList.id, todos });
+  };
 
   return (
     <Card sx={{ margin: '0 1rem' }}>

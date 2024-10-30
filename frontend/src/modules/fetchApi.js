@@ -1,22 +1,24 @@
-const baseUrl = 'http://localhost:3000/api/';
-const apiVersion = 'v1/';
+const API_URL = 'http://localhost:3000/api/';
+const API_VERSION = 'v1/';
 
-export const fetchApi = async (url, method, data) => {
+export const fetchApi = async (url, method = 'GET', data) => {
   const options = {
     method,
-    headers: {
-      'Content-Type': 'application/json',
-    },
   };
 
   if (data) {
+    options.headers = {
+      'Content-Type': 'application/json',
+    };
     options.body = JSON.stringify(data);
   }
 
   try {
-    const response = await fetch(baseUrl + apiVersion + url, options);
-    const result = await response.json();
-    return result;
+    const response = await fetch(API_URL + API_VERSION + url, options);
+    if (!response.ok) {
+      throw new Error(`Error ${response.status}: ${response.statusText}`);
+    }
+    return await response.json();
   } catch (error) {
     console.error(error);
   }
