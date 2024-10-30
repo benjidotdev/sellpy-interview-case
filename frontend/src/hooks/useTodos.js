@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { fetchListTodos, saveListTodos } from '../modules/lists'
+import { useState, useEffect, useRef } from 'react'
+import { fetchListTodos, updateListTodos } from '../modules/lists'
 import { deleteTodo } from '../modules/todos'
 import _ from 'lodash'
 
@@ -7,6 +7,7 @@ const useTodos = (listId) => {
   const [todos, setTodos] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const debouncedListRef = useRef(null);
 
   useEffect(() => {
     const fetchTodos = async () => {
@@ -38,9 +39,15 @@ const useTodos = (listId) => {
     }
   };
 
-  const debouncedListSave = _.debounce(async (listId, todos) => {
-    await saveListTodos({ listId, todos });
-  }, 200);
+  const debouncedListSave = (listId, todos) => {
+    if (!debouncedListRef.current || debouncedListRef.current.listId !== listId) {
+      debouncedListRef.current = {
+        listId,
+        debouncedSave: _.debounce((listId, todos) => updateListTodos({ listId, todos }), 200),
+      };
+    }
+    debouncedListRef.current.debouncedSave(listId, todos);
+  };
 
   const handleTodoChange = (index, field, value) => {
     const updatedTodos = [...todos];

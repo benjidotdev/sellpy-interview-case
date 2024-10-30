@@ -13,6 +13,7 @@ export const getListTodos = async (listId) => {
   return list.todos;
 }
 export const saveListTodos = async (listId, todos) => {
+  if (!todos.length) return [];
   await Todo.deleteMany({ list: listId });
   const todoDocuments = todos.map((todo) => ({
     description: todo.description,

@@ -14,7 +14,7 @@ export const fetchListTodos = async (listId) => {
   return await fetchApi(url, method, data);
 }
 
-export const saveListTodos = async ({ listId, todos }) => {
+export const updateListTodos = async ({ listId, todos }) => {
   const filteredTodos = todos.filter((todo) => todo.description.trim() !== '');
   const url = `list/${listId}/todos`;
   const method = 'PUT';
