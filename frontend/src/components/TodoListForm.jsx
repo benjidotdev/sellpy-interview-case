@@ -1,11 +1,11 @@
-import React from 'react';
-import { Card, CardContent, CardActions, Button, Typography } from '@mui/material';
-import { TodoItem } from './TodoItem';
-import useTodos from '../hooks/useTodos';
+import React from 'react'
+import { Card, CardContent, CardActions, Button, Typography } from '@mui/material'
+import { TodoItem } from './TodoItem'
+import useTodos from '../hooks/useTodos'
 
 export const TodoListForm = ({ todoList }) => {
-  const { id: listId } = todoList;
-  const { todos, addTodo, updateTodo, removeTodo } = useTodos(listId);
+  const { id: listId } = todoList
+  const { todos, addTodo, updateTodo, removeTodo } = useTodos(listId)
 
   return (
     <Card sx={{ margin: '0 1rem' }}>
@@ -22,16 +22,12 @@ export const TodoListForm = ({ todoList }) => {
             />
           ))}
           <CardActions>
-            <Button
-              type='button'
-              color='primary'
-              onClick={() => addTodo()}
-            >
+            <Button type='button' color='primary' onClick={() => addTodo()}>
               Add Todo
             </Button>
           </CardActions>
         </form>
       </CardContent>
     </Card>
-  );
-};
+  )
+}

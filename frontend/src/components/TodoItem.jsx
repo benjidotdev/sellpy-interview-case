@@ -1,13 +1,13 @@
-import React from 'react';
-import { TextField, Typography, Button } from '@mui/material';
+import React from 'react'
+import { TextField, Typography, Button } from '@mui/material'
 import DeleteIcon from '@mui/icons-material/Delete'
-import { LocalizationProvider, DatePicker } from '@mui/x-date-pickers';
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { LocalizationProvider, DatePicker } from '@mui/x-date-pickers'
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import { calculateRemainingTime } from '../utils/time'
 
 export const TodoItem = ({ index, todo, handleTodoChange, handleDeleteTodo }) => {
-  const { description, dueBy } = todo;
-  const dueByDate = new Date(dueBy);
+  const { description, dueBy } = todo
+  const dueByDate = new Date(dueBy)
 
   return (
     <div style={{ display: 'flex', alignItems: 'end', gap: '1rem' }}>
@@ -43,5 +43,5 @@ export const TodoItem = ({ index, todo, handleTodoChange, handleDeleteTodo }) =>
         <DeleteIcon />
       </Button>
     </div>
-  );
-};
+  )
+}

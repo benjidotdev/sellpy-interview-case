@@ -1,11 +1,9 @@
-import express from 'express';
+import express from 'express'
 
-import { todoController } from '../../controllers/index.js';
+import { todoController } from '../../controllers/index.js'
 
-const router = express.Router();
+const router = express.Router()
 
-router
-  .route('/:id')
-  .delete(todoController.deleteTodo);
+router.route('/:id').delete(todoController.deleteTodo)
 
-export default router;
+export default router

@@ -13,7 +13,7 @@ import { TodoListForm } from './TodoListForm'
 import useLists from '../hooks/useLists'
 
 export const TodoLists = ({ style }) => {
-  const { lists, setLists, activeList, setActiveList, error } = useLists();
+  const { lists, setLists, activeList, setActiveList, error } = useLists()
 
   if (!Object.keys(lists).length) return <div>No Lists</div>
 
