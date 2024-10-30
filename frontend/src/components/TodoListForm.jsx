@@ -52,7 +52,7 @@ export const TodoListForm = ({ todoList }) => {
                   sx={{ flexGrow: 1, marginTop: '1rem' }}
                   label='What to do?'
                   value={description}
-                  onChange={(event) => handleTodoChange(index, 'description', event)}
+                  onChange={(event) => handleTodoChange(index, 'description', event.target.value)}
                 />
                 <LocalizationProvider dateAdapter={AdapterDateFns}>
                   <DatePicker
