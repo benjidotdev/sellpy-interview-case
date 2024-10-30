@@ -6,7 +6,7 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { calculateRemainingTime } from '../utils/time'
 
 export const TodoItem = ({ index, todo, handleTodoChange, handleDeleteTodo }) => {
-  const { id, description, dueBy } = todo;
+  const { description, dueBy } = todo;
   const dueByDate = new Date(dueBy);
 
   return (
@@ -18,13 +18,13 @@ export const TodoItem = ({ index, todo, handleTodoChange, handleDeleteTodo }) =>
         sx={{ flexGrow: 1, marginTop: '1rem' }}
         label='What to do?'
         value={description}
-        onChange={(event) => handleTodoChange(index, 'description', event.target.value)}
+        onChange={(event) => handleTodoChange('description', event.target.value)}
       />
       <LocalizationProvider dateAdapter={AdapterDateFns}>
         <DatePicker
           label='Due by'
           value={dueByDate}
-          onChange={(date) => handleTodoChange(index, 'dueBy', date)}
+          onChange={(date) => handleTodoChange('dueBy', date)}
           slots={{
             textField: (props) => <TextField {...props} />,
           }}
@@ -38,7 +38,7 @@ export const TodoItem = ({ index, todo, handleTodoChange, handleDeleteTodo }) =>
         sx={{ margin: '8px' }}
         size='small'
         color='secondary'
-        onClick={() => handleDeleteTodo(id)}
+        onClick={handleDeleteTodo}
       >
         <DeleteIcon />
       </Button>

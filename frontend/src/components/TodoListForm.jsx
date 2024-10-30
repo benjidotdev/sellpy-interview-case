@@ -1,35 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Card, CardContent, CardActions, Button, Typography } from '@mui/material';
 import { TodoItem } from './TodoItem';
-import { saveListTodos } from '../modules/lists';
-import { deleteTodo } from '../modules/todos';
-import _ from 'lodash';
+import useTodos from '../hooks/useTodos';
 
 export const TodoListForm = ({ todoList }) => {
   const { id: listId } = todoList;
-  const [todos, setTodos] = useState([...todoList.todos]);
-
-  const debouncedListSave = _.debounce(async (listId, todos) => {
-    await saveListTodos({ listId, todos });
-  }, 200);
-
-  const handleAddTodo = () => {
-    setTodos([...todos, { id: '', description: '', dueBy: new Date() }]);
-  };
-
-  const handleTodoChange = (index, field, value) => {
-    const updatedTodos = [...todos];
-    updatedTodos[index][field] = value;
-    setTodos(updatedTodos);
-    debouncedListSave(listId, updatedTodos);
-  };
-
-  const handleDeleteTodo = async (id) => {
-    if (window.confirm("Are you sure you want to delete this todo?")) {
-      await deleteTodo(id);
-      setTodos(todos.filter((todo) => todo.id !== id));
-    }
-  };
+  const { todos, addTodo, updateTodo, removeTodo } = useTodos(listId);
 
   return (
     <Card sx={{ margin: '0 1rem' }}>
@@ -41,15 +17,15 @@ export const TodoListForm = ({ todoList }) => {
               key={index}
               todo={todo}
               index={index}
-              handleTodoChange={handleTodoChange}
-              handleDeleteTodo={handleDeleteTodo}
+              handleTodoChange={(field, value) => updateTodo(index, field, value)}
+              handleDeleteTodo={() => removeTodo(todo.id)}
             />
           ))}
           <CardActions>
             <Button
               type='button'
               color='primary'
-              onClick={() => handleAddTodo()}
+              onClick={() => addTodo()}
             >
               Add Todo
             </Button>

@@ -15,10 +15,6 @@ import useLists from '../hooks/useLists'
 export const TodoLists = ({ style }) => {
   const { lists, setLists, activeList, setActiveList, error } = useLists();
 
-  const handleListClick = (id) => {
-    setActiveList(id);
-  };
-
   if (!Object.keys(lists).length) return <div>No Lists</div>
 
   if (error) return <div>Something went wrong</div>
@@ -30,7 +26,7 @@ export const TodoLists = ({ style }) => {
           <Typography component='h2'>My Todo Lists</Typography>
           <List>
             {Object.keys(lists).map((key) => (
-              <ListItemButton key={key} onClick={() => handleListClick(key)}>
+              <ListItemButton key={key} onClick={() => setActiveList(key)}>
                 <ListItemIcon>
                   <ReceiptIcon />
                 </ListItemIcon>

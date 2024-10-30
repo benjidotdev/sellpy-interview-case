@@ -18,6 +18,10 @@ export const updateTodo = async (id, todo) => {
   return Todo.findByIdAndUpdate(id, todo, { new: true });
 };
 
+export const getListTodos = async (listId) => {
+  const list = await List.findById(listId).populate('todos');
+  return list.todos;
+}
 export const saveListTodos = async (listId, todos) => {
   await Todo.deleteMany({ list: listId });
   const todoDocuments = todos.map((todo) => ({

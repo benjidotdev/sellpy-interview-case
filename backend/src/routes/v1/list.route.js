@@ -1,6 +1,7 @@
 import express from 'express';
 
 import { listController } from '../../controllers/index.js';
+import { getListTodos } from '../../controllers/list.controller.js'
 
 const router = express.Router();
 
@@ -11,6 +12,7 @@ router
 
 router
   .route('/:id/todos')
+  .get(listController.getListTodos)
   .put(listController.saveListTodos);
 
 router
