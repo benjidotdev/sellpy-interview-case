@@ -5,6 +5,15 @@ const todoSchema = new mongoose.Schema({
   description: {
     type: String,
   },
+  dueBy: {
+    type: Date,
+    validate: {
+      validator: (date) => {
+        return date instanceof Date;
+      },
+      message: 'Invalid date'
+    }
+  },
   list: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'List',

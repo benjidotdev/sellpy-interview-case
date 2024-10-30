@@ -2,9 +2,9 @@ import { fetchApi } from './fetchApi.js'
 
 export const saveListTodos = async ({ listId, todos }) => {
   const filteredTodos = todos.filter((todo) => todo.description.trim() !== '');
-  if (filteredTodos.length === 0) return;
   const url = `list/${listId}/todos`;
   const method = 'PUT';
+  console.log(filteredTodos);
   return await fetchApi(url, method, filteredTodos);
 };
 

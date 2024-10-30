@@ -20,8 +20,11 @@ export const updateTodo = async (id, todo) => {
 
 export const saveListTodos = async (listId, todos) => {
   await Todo.deleteMany({ list: listId });
-  const todoDocuments = todos.map((todo) => ({ description: todo.description, list: listId }));
-  const result = await Todo.insertMany(todoDocuments);
+  const todoDocuments = todos.map((todo) => ({
+    description: todo.description,
+    dueBy: todo.dueBy,
+    list: listId,
+  }));  const result = await Todo.insertMany(todoDocuments);
   const todoIds = result.map((todo) => todo._id);
   await List.findByIdAndUpdate(listId, { $set: { todos: todoIds } });
   return todoIds;
