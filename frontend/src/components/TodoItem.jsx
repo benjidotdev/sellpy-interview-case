@@ -38,7 +38,7 @@ export const TodoItem = ({ index, todo, handleTodoChange, handleDeleteTodo }) =>
         sx={{ margin: '8px' }}
         size='small'
         color='secondary'
-        onClick={handleDeleteTodo}
+        onClick={() => handleDeleteTodo(index, todo.id)}
       >
         <DeleteIcon />
       </Button>

@@ -18,7 +18,7 @@ export const TodoListForm = ({ todoList }) => {
               todo={todo}
               index={index}
               handleTodoChange={(field, value) => updateTodo(index, field, value)}
-              handleDeleteTodo={() => removeTodo(todo.id)}
+              handleDeleteTodo={(index, id) => removeTodo(index, id)}
             />
           ))}
           <CardActions>

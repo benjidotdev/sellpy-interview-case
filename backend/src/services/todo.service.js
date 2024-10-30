@@ -9,8 +9,8 @@ export const deleteTodo = async (id) => {
 };
 
 export const getListTodos = async (listId) => {
-  const list = await List.findById(listId).populate('todos');
-  return list.todos;
+  const { todos } = await List.findById(listId).populate('todos');
+  return todos;
 }
 export const saveListTodos = async (listId, todos) => {
   if (!todos.length) return [];

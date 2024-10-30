@@ -32,10 +32,14 @@ const useTodos = (listId) => {
     setTodos([...todos, { id: '', description: '', dueBy: new Date() }]);
   };
 
-  const removeTodo = async (id) => {
-    if (window.confirm("Are you sure you want to delete this todo?")) {
-      await deleteTodo(id);
-      setTodos(todos.filter((todo) => todo.id !== id));
+  const removeTodo = async (index, id) => {
+    if (!id) {
+      setTodos(todos.filter((todo, i) => i !== index));
+    } else {
+      if (window.confirm("Are you sure you want to delete this todo?")) {
+        await deleteTodo(id);
+        setTodos(todos.filter((todo) => todo.id !== id));
+      }
     }
   };
 
