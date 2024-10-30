@@ -1,26 +1,27 @@
 import React, { useState } from 'react';
 import { Card, CardContent, CardActions, Button, Typography } from '@mui/material';
 import { TodoItem } from './TodoItem';
-import { saveListTodos, deleteTodo } from '../modules/todos';
+import { saveListTodos } from '../modules/lists';
+import { deleteTodo } from '../modules/todos';
 import _ from 'lodash';
 
 export const TodoListForm = ({ todoList }) => {
   const { id: listId } = todoList;
   const [todos, setTodos] = useState([...todoList.todos]);
 
+  const debouncedListSave = _.debounce(async (listId, todos) => {
+    await saveListTodos({ listId, todos });
+  }, 200);
+
   const handleAddTodo = () => {
     setTodos([...todos, { id: '', description: '', dueBy: new Date() }]);
   };
-
-  const debouncedSave = _.debounce(async (listId, todos) => {
-    await saveListTodos({ listId, todos });
-  }, 200);
 
   const handleTodoChange = (index, field, value) => {
     const updatedTodos = [...todos];
     updatedTodos[index][field] = value;
     setTodos(updatedTodos);
-    debouncedSave(listId, updatedTodos);
+    debouncedListSave(listId, updatedTodos);
   };
 
   const handleDeleteTodo = async (id) => {

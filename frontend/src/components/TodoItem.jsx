@@ -5,7 +5,7 @@ import { LocalizationProvider, DatePicker } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { calculateRemainingTime } from '../utils/time'
 
-export const TodoItem = ({ todo, index, handleTodoChange, handleDeleteTodo }) => {
+export const TodoItem = ({ index, todo, handleTodoChange, handleDeleteTodo }) => {
   const { id, description, dueBy } = todo;
   const dueByDate = new Date(dueBy);
 
@@ -25,7 +25,9 @@ export const TodoItem = ({ todo, index, handleTodoChange, handleDeleteTodo }) =>
           label='Due by'
           value={dueByDate}
           onChange={(date) => handleTodoChange(index, 'dueBy', date)}
-          slots={{ textField: (params) => <TextField {...params} /> }}
+          slots={{
+            textField: (props) => <TextField {...props} />,
+          }}
         />
       </LocalizationProvider>
       <Typography sx={{ display: 'flex', flexDirection: 'column', margin: '8px' }} variant='body2'>

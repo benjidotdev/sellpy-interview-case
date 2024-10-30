@@ -29,6 +29,7 @@ export const TodoLists = ({ style }) => {
   };
 
   if (!Object.keys(todoLists).length) return null
+
   return (
     <Fragment>
       <Card style={style}>
