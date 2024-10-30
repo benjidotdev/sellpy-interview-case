@@ -1,4 +1,4 @@
-import { fetchApi } from './fetchApi.js'
+import { fetchApi } from './fetchApi'
 
 export const deleteTodo = async (id) => {
   const url = `todo/${id}`;
