@@ -29,17 +29,20 @@ const useTodos = (listId) => {
   }, [listId])
 
   const addTodo = () => {
-    setTodos([...todos, { id: '', description: '', dueBy: new Date() }])
+    const today = new Date()
+    const tomorrow = new Date(today)
+    tomorrow.setDate(tomorrow.getDate() + 1)
+
+    setTodos([...todos, { id: '', description: '', dueBy: tomorrow }])
   }
 
   const removeTodo = async (index, id) => {
+    window.confirm('Are you sure you want to delete this item?')
     if (!id) {
-      setTodos(todos.filter((todo, i) => i !== index))
+      setTodos(todos.filter((_, i) => i !== index))
     } else {
-      if (window.confirm('Are you sure you want to delete this todo?')) {
-        await deleteTodo(id)
-        setTodos(todos.filter((todo) => todo.id !== id))
-      }
+      setTodos(todos.filter((_, i) => i !== index))
+      await deleteTodo(id)
     }
   }
 
@@ -47,7 +50,7 @@ const useTodos = (listId) => {
     if (!debouncedListRef.current || debouncedListRef.current.listId !== listId) {
       debouncedListRef.current = {
         listId,
-        debouncedSave: _.debounce((listId, todos) => updateListTodos({ listId, todos }), 200),
+        debouncedSave: _.debounce((listId, todos) => updateListTodos({ listId, todos }), 500),
       }
     }
     debouncedListRef.current.debouncedSave(listId, todos)

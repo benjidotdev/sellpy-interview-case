@@ -12,12 +12,29 @@ import ReceiptIcon from '@mui/icons-material/Receipt'
 import { TodoListForm } from './TodoListForm'
 import useLists from '../hooks/useLists'
 
+const StateCard = ({ state, style }) => {
+  const stateText = state === 'loading' ? 'Loading...' : 'Error'
+
+  return (
+    <Fragment>
+      <Card style={style}>
+        <CardContent>
+          <Typography component='h2'>{stateText}</Typography>
+        </CardContent>
+      </Card>
+    </Fragment>
+  )
+}
 export const TodoLists = ({ style }) => {
-  const { lists, setLists, activeList, setActiveList, error } = useLists()
+  const { lists, setLists, activeList, setActiveList, loading, error } = useLists()
 
-  if (!Object.keys(lists).length) return <div>No Lists</div>
+  if (loading) {
+    return <StateCard state='loading' style={style} />
+  }
 
-  if (error) return <div>Something went wrong</div>
+  if (error) {
+    return <StateCard state='error' style={style} />
+  }
 
   return (
     <Fragment>

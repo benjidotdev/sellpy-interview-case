@@ -4,6 +4,6 @@ import { todoController } from '../../controllers/index.js'
 
 const router = express.Router()
 
-router.route('/:id').delete(todoController.deleteTodo)
+router.route('/').delete(todoController.deleteTodo)
 
 export default router

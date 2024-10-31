@@ -1,8 +1,8 @@
 import { fetchApi } from './fetchApi'
 
 export const deleteTodo = async (id) => {
-  const url = `todo/${id}`
+  const url = `todo`
   const method = 'DELETE'
-  const data = null
+  const data = { id }
   return await fetchApi(url, method, data)
 }

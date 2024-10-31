@@ -6,3 +6,5 @@ backend/node_modules
 backend/npm-debug.log
 
 backend/.env
+
+.idea/
