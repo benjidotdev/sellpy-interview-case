@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:3000/api/'
+const API_URL = 'http://localhost:3001/api/'
 const API_VERSION = 'v1/'
 
 export const fetchApi = async (url, method = 'GET', data) => {

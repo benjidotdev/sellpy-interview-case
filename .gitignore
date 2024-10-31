@@ -8,3 +8,4 @@ backend/npm-debug.log
 backend/.env
 
 .idea/
+.DS_Store

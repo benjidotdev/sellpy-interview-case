@@ -1,61 +1,97 @@
-# Sellpy web interview
+# Sellpy interview case
 
-Welcome to Sellpy's web interview repo!
+Repo: https://github.com/benjidotdev/sellpy-interview-case
 
-## Prerequisites
+## Contents
 
-NodeJS - if you don't already have it installed, check out [nvm](https://github.com/nvm-sh/nvm).
+- [Requirements](#requirements)
+- [Getting started](#getting-started)
+- [Assignment](#assignment)
+
+## Requirements
+
+- [Node.js](https://nodejs.org/en/)
+- [npm](https://www.npmjs.com/)
 
 ## Getting started
 
-Fork the repository (see top-right button on GitHub) and clone the fork to your computer.
+1. Clone the repository
 
-### To start the backend:
+   ```bash
+   #SSH
+   git clone git@github.com:benjidotdev/sellpy-interview-case.git
+   ```
 
-- Navigate to the backend folder
-- Run `npm ci`
-- Run `npm start`
+   or
 
-### To start the frontend:
+   ```bash
+   #HTTPS
+   git clone https://github.com/benjidotdev/sellpy-interview-case.git
+   ```
 
-- Navigate to the frontend folder
-- Run `npm ci`
-- Run `npm start`
+2. From project root, navigate to `/backend` and create a `.env` file
 
-A browsertab will automatically open and load the app.
+   ```
+   cd backend && cp .env.example .env
+   ```
+   
+3. Update the `.env` file with the credentials provided
 
-### Development set-up
+   ```
+   See email
+   ```
 
-If you don't have a favorite editor we highly recommend [VSCode](https://code.visualstudio.com). We've also had some ESLint rules set up which will help you catch bugs etc. If you're using VSCode, install the regular [ESLint plugin](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) and you should be good to go!
+4. Install the backend dependencies
+   
+   ```bash
+   npm install
+   ```
 
-You can open the root folder in one workspace, or `/frontend` and `/backend` in seperate workspaces - both should work fine.
+5. Start the server
 
-Check `.nvmrc` to see what node version is required to run the project. Just run `nvm use` if you have `nvm` installed. Later versions of node might work fine as well, but probably not earlier versions.
+   ```bash
+   npm start
+   ```
 
-For those of you using Prettier (not a requirement), there's an .prettierrc file to ensure no unnecessary changes to the existing code. It should be picked up automatically by Prettier.
+6. Navigate to `/frontend`
+
+   ```
+   cd frontend
+   ```
+
+7. Install the dependencies
+
+   ```bash
+   npm install
+   ```
+
+8. Start the frontend
+
+   ```bash
+   npm start
+   ```
+
+9. Navigate to  http://localhost:3000
 
 ## Assignment
 
-Your assignment is to improve this todo list application. At the moment the application is simple and can only create and remove todos.
-As is, nothing is persisted in the server. As a result all state is cleared when refreshing the page!
-Below follows one main task and 4 additional tasks. Your assignment is to complete the main task together with at least 2 out of 4 of the additional tasks.
-If you feel constrained by time (which is totally fine!), prioritize quality over quantity.
+As requested, I've tried to keep things as clean and simple as possible.
 
 ### Main Task
 
-Persist the todo lists on the server. Persisting in a database is not required. (Simple js structures on the server is fine). If you do go for an actual DB (again not required), be sure to include instructions of how to get it up and running.
+> Persist the todo lists on the server. Persisting in a database is not required. (Simple js structures on the server is fine). If you do go for an actual DB (again not required), be sure to include instructions of how to get it up and running.
+
+I decided to use MongoDB to persist the todo lists. As it says in the [getting started](#getting-started), you will need to create and update the `.env` file. The details are in my reply to the `Teknisk intervju` invite email.
 
 ### Additional tasks
 
-- Don't require users to press save when an item is added/edited in the todo list. (Autosave functionality)
-- Make it possible to indicate that a todo is completed.
-- Indicate that a todo list is completed if all todo items within are completed.
-- Add a date for completion to todo items. Indicate how much time is remaining or overdue.
+> 1. Don't require users to press save when an item is added/edited in the todo list. (Autosave functionality)
+> 2. Make it possible to indicate that a todo is completed.
+> 3. Indicate that a todo list is completed if all todo items within are completed.
+> 4. Add a date for completion to todo items. Indicate how much time is remaining or overdue.
 
-## Submission
+I decided to go for tasks 1 and 4.
 
-Before submitting, read through all changes one last time - code quality matters!
+For task 1, I created an `updateTodo` function with a basic pseudo-debounce that when timeout is reached, triggers an api call to update the todo list in the database. It also uses basic optimistic updating techniques, as does the `addTodo` and `removeTodo` functionality.
 
-If you have developed without ESLint set up, run `npm run lint` in both `/backend` and `/frontend` and fix any errors/warnings.
-
-Send a link to your forked repository to your contact at Sellpy. Don't forget to mention which tasks you completed.
+For task 4, I used the `<input type="date">` to generate and set a date. I then created some time utilities in the `utils/time.js` file for displaying remaining/overdue time and associated logic.
