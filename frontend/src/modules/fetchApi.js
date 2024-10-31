@@ -1,5 +1,4 @@
-const API_URL = 'http://localhost:3001/api/'
-const API_VERSION = 'v1/'
+import { API_URL, API_VERSION } from '../constants'
 
 export const fetchApi = async ({ url, method = 'GET', data }) => {
   const options = {
