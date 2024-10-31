@@ -1,5 +1,5 @@
 import httpStatus from 'http-status'
-import { listService, todoService } from '../services/index.js'
+import { listService } from '../services/index.js'
 
 export const getLists = async (req, res) => {
   const result = await listService.getLists()
@@ -7,11 +7,11 @@ export const getLists = async (req, res) => {
 }
 
 export const getListTodos = async (req, res) => {
-  const result = await todoService.getListTodos(req.params.id)
+  const result = await listService.getListTodos(req.params.id)
   res.status(httpStatus.OK).send(result)
 }
 
 export const saveListTodos = async (req, res) => {
-  const result = await todoService.saveListTodos(req.params.id, req.body)
+  const result = await listService.saveListTodos(req.params.id, req.body)
   res.status(httpStatus.OK).send(result)
 }

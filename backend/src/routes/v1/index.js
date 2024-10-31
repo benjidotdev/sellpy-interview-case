@@ -1,6 +1,5 @@
 import express from 'express'
 import listRoute from './list.route.js'
-import todoRoute from './todo.route.js'
 
 const router = express.Router()
 
@@ -8,10 +7,6 @@ const defaultRoutes = [
   {
     path: '/list',
     route: listRoute,
-  },
-  {
-    path: '/todo',
-    route: todoRoute,
   },
 ]
 

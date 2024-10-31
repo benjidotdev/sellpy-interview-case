@@ -1,13 +1,10 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 import { fetchListTodos, updateListTodos } from '../modules/lists'
-import { deleteTodo } from '../modules/todos'
-import _ from 'lodash'
 
 const useTodos = (listId) => {
   const [todos, setTodos] = useState([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
-  const debouncedListRef = useRef(null)
 
   useEffect(() => {
     const fetchTodos = async () => {
@@ -36,39 +33,47 @@ const useTodos = (listId) => {
     setTodos([...todos, { id: '', description: '', dueBy: tomorrow }])
   }
 
-  const removeTodo = async (index, id) => {
-    window.confirm('Are you sure you want to delete this item?')
-    if (!id) {
-      setTodos(todos.filter((_, i) => i !== index))
-    } else {
-      setTodos(todos.filter((_, i) => i !== index))
-      await deleteTodo(id)
+  const updateTodo = async (index, field, value) => {
+    setTodos((prevTodos) => {
+      const updatedTodos = [...prevTodos]
+      updatedTodos[index][field] = value
+      return updatedTodos
+    })
+
+    try {
+      await updateListTodos({ listId, todos: [...todos] })
+    } catch (error) {
+      setTodos((prevTodos) => {
+        const newTodos = [...prevTodos]
+        newTodos[index][field] = todos[index][field]
+        return newTodos
+      })
     }
   }
 
-  const debouncedListSave = (listId, todos) => {
-    if (!debouncedListRef.current || debouncedListRef.current.listId !== listId) {
-      debouncedListRef.current = {
-        listId,
-        debouncedSave: _.debounce((listId, todos) => updateListTodos({ listId, todos }), 500),
-      }
-    }
-    debouncedListRef.current.debouncedSave(listId, todos)
-  }
-
-  const handleTodoChange = (index, field, value) => {
+  const removeTodo = async (index) => {
+    if (!window.confirm('Are you sure you want to delete this Todo?')) return
     const updatedTodos = [...todos]
-    updatedTodos[index][field] = value
+    updatedTodos.splice(index, 1)
     setTodos(updatedTodos)
-    debouncedListSave(listId, updatedTodos)
+
+    try {
+      await updateListTodos({ listId, todos: updatedTodos })
+    } catch (error) {
+      setTodos((prevTodos) => {
+        const updatedTodos = [...prevTodos]
+        updatedTodos.splice(index, 0, todos[index])
+        return updatedTodos
+      })
+    }
   }
 
   return {
     todos,
     setTodos,
     addTodo,
+    updateTodo,
     removeTodo,
-    updateTodo: handleTodoChange,
     loading,
     error,
   }
