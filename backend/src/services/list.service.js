@@ -10,8 +10,11 @@ export const getListTodos = async (listId) => {
 }
 
 export const saveListTodos = async (listId, todos) => {
-  if (!todos.length) return []
   await Todo.deleteMany({ list: listId })
+  if (!todos.length) {
+    await List.findByIdAndUpdate(listId, { $set: { todos: [] } })
+    return []
+  }
   const todoDocuments = todos.map((todo) => ({
     description: todo.description,
     dueBy: todo.dueBy,

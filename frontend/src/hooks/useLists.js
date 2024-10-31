@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { fetchTodoLists } from '../modules/lists'
+import { fetchLists as fetchTodoLists } from '../modules/lists'
 
 const useLists = () => {
   const [lists, setLists] = useState({})

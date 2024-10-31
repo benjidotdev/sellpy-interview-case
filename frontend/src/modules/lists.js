@@ -1,6 +1,6 @@
 import { fetchApi } from './fetchApi'
 
-export const fetchTodoLists = async () => {
+export const fetchLists = async () => {
   const url = 'list'
   const method = 'GET'
   const data = null

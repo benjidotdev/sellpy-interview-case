@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { fetchListTodos, updateListTodos } from '../modules/lists'
+import { debounce } from 'lodash'
 
 const useTodos = (listId) => {
   const [todos, setTodos] = useState([])
@@ -25,12 +26,23 @@ const useTodos = (listId) => {
     fetchTodos()
   }, [listId])
 
-  const addTodo = () => {
+  const addTodo = async () => {
     const today = new Date()
     const tomorrow = new Date(today)
     tomorrow.setDate(tomorrow.getDate() + 1)
 
-    setTodos([...todos, { id: '', description: '', dueBy: tomorrow }])
+    const newTodo = { id: '', description: '', dueBy: tomorrow }
+    setTodos([...todos, newTodo])
+
+    try {
+      await updateListTodos({ listId, todos: [...todos, newTodo] })
+    } catch (error) {
+      setTodos((prevTodos) => {
+        const updatedTodos = [...prevTodos]
+        updatedTodos.pop()
+        return updatedTodos
+      })
+    }
   }
 
   const updateTodo = async (index, field, value) => {
