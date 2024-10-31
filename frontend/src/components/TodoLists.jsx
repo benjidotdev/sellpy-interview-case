@@ -11,20 +11,7 @@ import {
 import ReceiptIcon from '@mui/icons-material/Receipt'
 import { TodoListForm } from './TodoListForm'
 import useLists from '../hooks/useLists'
-
-const StateCard = ({ state, style }) => {
-  const stateText = state === 'loading' ? 'Loading...' : 'Error'
-
-  return (
-    <Fragment>
-      <Card style={style}>
-        <CardContent>
-          <Typography component='h2'>{stateText}</Typography>
-        </CardContent>
-      </Card>
-    </Fragment>
-  )
-}
+import { StateCard } from './StateCard'
 
 export const TodoLists = ({ style }) => {
   const { lists, setLists, activeList, setActiveList, loading, error } = useLists()
