@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react'
 import { fetchListTodos, updateListTodos } from '../modules/lists'
-import { debounce } from 'lodash'
 
 const useTodos = (listId) => {
   const [todos, setTodos] = useState([])

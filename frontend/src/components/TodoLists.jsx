@@ -25,6 +25,7 @@ const StateCard = ({ state, style }) => {
     </Fragment>
   )
 }
+
 export const TodoLists = ({ style }) => {
   const { lists, setLists, activeList, setActiveList, loading, error } = useLists()
 
