@@ -5,7 +5,7 @@ const useTodos = (listId) => {
   const [todos, setTodos] = useState([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
-  const timeoutId = useRef(null);
+  const timeoutId = useRef(null)
 
   useEffect(() => {
     const fetchTodos = async () => {
@@ -47,24 +47,24 @@ const useTodos = (listId) => {
 
   const updateTodo = (index, field, value) => {
     setTodos((prevTodos) => {
-      const updatedTodos = [...prevTodos];
-      updatedTodos[index][field] = value;
-      return updatedTodos;
-    });
+      const updatedTodos = [...prevTodos]
+      updatedTodos[index][field] = value
+      return updatedTodos
+    })
 
-    clearTimeout(timeoutId.current);
+    clearTimeout(timeoutId.current)
     timeoutId.current = setTimeout(async () => {
       try {
-        await updateListTodos({ listId, todos: [...todos] });
+        await updateListTodos({ listId, todos: [...todos] })
       } catch (error) {
         setTodos((prevTodos) => {
-          const newTodos = [...prevTodos];
-          newTodos[index][field] = todos[index][field];
-          return newTodos;
-        });
+          const newTodos = [...prevTodos]
+          newTodos[index][field] = todos[index][field]
+          return newTodos
+        })
       }
-    }, 500);
-  };
+    }, 500)
+  }
 
   const removeTodo = async (index) => {
     if (!window.confirm('Are you sure you want to delete this Todo?')) return
