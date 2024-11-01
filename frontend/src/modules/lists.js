@@ -9,5 +9,5 @@ export const fetchListTodos = async (listId) => {
 }
 
 export const updateListTodos = async ({ listId, todos }) => {
-  return await fetchApi({ url:`list/${listId}/todos`, method: 'PUT', data: todos })
+  return await fetchApi({ url: `list/${listId}/todos`, method: 'PUT', data: todos })
 }
