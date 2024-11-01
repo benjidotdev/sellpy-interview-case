@@ -32,7 +32,7 @@ Repo: https://github.com/benjidotdev/sellpy-interview-case
 2. From project root, navigate to `/backend` and create a `.env` file
 
    ```
-   cd backend && cp .env.example .env
+   cp .env.example .env
    ```
    
 3. Update the `.env` file with the credentials provided
@@ -44,7 +44,7 @@ Repo: https://github.com/benjidotdev/sellpy-interview-case
 4. Install the backend dependencies
    
    ```bash
-   npm install
+   npm ci
    ```
 
 5. Start the server
@@ -62,7 +62,7 @@ Repo: https://github.com/benjidotdev/sellpy-interview-case
 7. Install the dependencies
 
    ```bash
-   npm install
+   npm ci
    ```
 
 8. Start the frontend
